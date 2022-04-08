@@ -13,25 +13,20 @@ import { signInHandler } from './src/components/sign-in/sign-in';
 import { signUpHandler } from './src/components/sign-up/sign-up';
 import { getToken } from './src/shared/services/local-storage-service';
 
+const routerMap = new Map([
+  [PATHNAMES.home, () => (window.location.href = ROUTS.sign_in)],
+  [PATHNAMES.sign_in, () => signInHandler()],
+  [
+    PATHNAMES.main,
+    () => (!getToken() ? (window.location.href = ROUTS.sign_in) : null),
+  ],
+  [PATHNAMES.sign_up, () => signUpHandler()],
+]);
+
 window.onload = () => {
   const pathname = window.location.pathname;
 
-  switch (pathname) {
-    case PATHNAMES.home:
-      window.location.href = ROUTS.sign_in;
-      break;
-    case PATHNAMES.sign_in:
-      signInHandler();
-      break;
-    case PATHNAMES.sign_up:
-      signUpHandler();
-      break;
-    case PATHNAMES.main:
-      !getToken() ? (window.location.href = ROUTS.sign_in) : null;
-      break;
-
-    default:
-  }
+  routerMap.get(pathname)();
 };
 
 // const app = initializeApp(FIREBASE_CONFIG);
