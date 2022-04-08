@@ -1,6 +1,13 @@
+@import '../style/colors.scss';
+
 @import '../components/sign-in/sign-in.scss';
 @import '../components/sign-up/sign-up.scss';
+@import '../components/main/main.scss';
 
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
-  background-color: #b6cdce;
+  background-color: $colorBody;
 }
