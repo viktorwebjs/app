@@ -11,16 +11,21 @@ import './src/style/style.scss';
 import { PATHNAMES, ROUTS } from './src/shared/constants/routs';
 import { signInHandler } from './src/components/sign-in/sign-in';
 import { signUpHandler } from './src/components/sign-up/sign-up';
-import { getToken } from './src/shared/services/local-storage-service';
+import { getToken, getUser } from './src/shared/services/local-storage-service';
+import { mainPageHandler } from './src/components/main/main';
 
 const routerMap = new Map([
   [PATHNAMES.home, () => (window.location.href = ROUTS.sign_in)],
   [PATHNAMES.sign_in, () => signInHandler()],
+  [PATHNAMES.sign_up, () => signUpHandler()],
   [
     PATHNAMES.main,
-    () => (!getToken() ? (window.location.href = ROUTS.sign_in) : null),
+    () => {
+      !getToken() && !getUser()
+        ? (window.location.href = ROUTS.sign_in)
+        : mainPageHandler();
+    },
   ],
-  [PATHNAMES.sign_up, () => signUpHandler()],
 ]);
 
 window.onload = () => {
