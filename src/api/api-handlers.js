@@ -34,3 +34,6 @@ export const getUser = (id) => {
     response.json()
   );
 };
+
+export const getTodos = () =>
+  fetch(`${DB_URL}/todos.json`).then((response) => response.json());

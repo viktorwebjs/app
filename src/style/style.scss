@@ -3,11 +3,14 @@
 @import '../components/sign-in/sign-in.scss';
 @import '../components/sign-up/sign-up.scss';
 @import '../components/main/main.scss';
+@import '../components/todo/todo.scss';
+@import './mixins.scss';
 
 * {
   margin: 0;
   padding: 0;
 }
+
 body {
   background-color: $colorBody;
 }
