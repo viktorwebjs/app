@@ -24,6 +24,10 @@ module.exports = {
       filename: 'main.html',
       template: './src/components/main/main.html',
     }),
+    new HTMLWebpackPlugin({
+      filename: 'find-users.html',
+      template: './src/components/find-users/find-users.html',
+    }),
   ],
   module: {
     rules: [

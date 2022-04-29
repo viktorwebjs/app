@@ -12,11 +12,12 @@ export const mainPageHandler = async () => {
   const headerEmail = document.getElementById('email');
   const todoWrapper = document.querySelector('.main__todos');
   const logoutBtn = document.getElementById('logout');
+  const findUser = document.getElementById('find_user');
   let todos = [];
   const { firstName, lastName, email } = getUser();
 
-  headerEmail.innerText = email;
-  headerUserName.innerText = `${firstName} ${lastName}`;
+  // headerEmail.innerText = email;
+  // headerUserName.innerText = `${firstName} ${lastName}`;
 
   await getTodos().then((todosArr) => {
     todos = Object.keys(todosArr).map((key) => {
@@ -29,10 +30,12 @@ export const mainPageHandler = async () => {
   });
 
   logoutBtn.onclick = () => {
-    console.log('logout');
     clearUser();
     clearToken();
 
     window.location.href = ROUTS.sign_in;
+  };
+  findUser.onclick = () => {
+    window.location.href = ROUTS.find_users;
   };
 };

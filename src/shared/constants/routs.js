@@ -3,6 +3,7 @@ export const PATHNAMES = {
   sign_in: '/sign-in.html',
   main: '/main.html',
   sign_up: '/sign-up.html',
+  find_users: 'find-users.html',
 };
 
 export const ROUTS = {
@@ -10,4 +11,5 @@ export const ROUTS = {
   sign_in: 'sign-in.html',
   main: 'main.html',
   sign_up: '/sign-up.html',
+  find_users: 'find-users.html',
 };

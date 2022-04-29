@@ -4,11 +4,13 @@
   align-items: $align_items;
   justify-content: $justify_content;
 }
-@mixin size($width: 100%, $height: inherit, $min-height: inherit) {
+
+@mixin size($width: 100%, $height: inherit, $min_height: inherit) {
   width: $width;
-  height: inherit;
-  min-height: $min-height;
+  height: $height;
+  min-height: $min_height;
 }
+
 @mixin border($height, $type, $color, $radius) {
   border: $height $type $color;
   border-radius: $radius;
