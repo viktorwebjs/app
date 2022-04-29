@@ -10,7 +10,7 @@ export class Todo {
   }
   getTodo() {
     const todoWrapper = document.createElement('div');
-    const title = document.createElement('p');
+    const title = document.createElement('h4');
     const description = document.createElement('p');
 
     todoWrapper.className = 'todo';

@@ -16,11 +16,15 @@
       @include flex(row, center);
 
       &__photo {
-        @include size(50px, 50px);
+        // @include size(50px, 50px);
+        border: 50px;
         border-radius: 50%;
         background-color: #fff;
       }
-
+      button {
+        margin-left: 15px;
+        border-radius: 10px;
+      }
       &__info {
         @include flex(column, center);
         margin-right: 20px;

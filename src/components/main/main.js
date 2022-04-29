@@ -1,4 +1,9 @@
-import { getUser } from '../../shared/services/local-storage-service';
+import {
+  getUser,
+  clearUser,
+  clearToken,
+} from '../../shared/services/local-storage-service';
+import { ROUTS } from '../../shared/constants/routs';
 import { getTodos } from '../../api/api-handlers';
 import { Todo } from '../todo/todo';
 
@@ -6,6 +11,7 @@ export const mainPageHandler = async () => {
   const headerUserName = document.getElementById('userName');
   const headerEmail = document.getElementById('email');
   const todoWrapper = document.querySelector('.main__todos');
+  const logoutBtn = document.getElementById('logout');
   let todos = [];
   const { firstName, lastName, email } = getUser();
 
@@ -21,4 +27,12 @@ export const mainPageHandler = async () => {
       return todo;
     });
   });
+
+  logoutBtn.onclick = () => {
+    console.log('logout');
+    clearUser();
+    clearToken();
+
+    window.location.href = ROUTS.sign_in;
+  };
 };
