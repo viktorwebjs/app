@@ -1,1 +1,8 @@
-.main__header{height:100px;background-color:#2aaf83}
+.main__header {
+    height: 100px;
+    background-color: #2aaf83
+}
+
+.btn:disabled {
+    background-color: #2aaf83;
+}

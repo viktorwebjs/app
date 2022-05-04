@@ -1,22 +1,13 @@
+import {
+  getUser,
+  clearUser,
+  clearToken,
+} from '../../shared/services/local-storage-service';
+import { ROUTS } from '../../shared/constants/routs';
 export class Header {
-  constructor() {}
+  // constructor() {}
 
-  getHeaderTemplate() {
-    // <div class="header">
-    //   <div class="main__header__logo">
-    //     <p>TODO LIST</p>
-    //   </div>
-    //   <div class="main__header__user">
-    //     <div class="main__header__user__info">
-    //       <p id="userName"></p>
-    //       <p id="email"></p>
-    //     </div>
-    //     <div class="main__header__user__photo"></div>
-    //     <button id="find_user">Find User</button>
-    //     <button id="logout">LOGOUT</button>
-    //   </div>
-    // </div>;
-
+  static getHeader(target) {
     const header = document.createElement('div');
     const headerLogo = document.createElement('div');
     const headerTitle = document.createElement('p');
@@ -27,15 +18,43 @@ export class Header {
     const headerUserPhoto = document.createElement('div');
     const headerUserFindUserButton = document.createElement('button');
     const headerUserLogoutButton = document.createElement('button');
+    const { firstName, lastName, email } = getUser();
 
-    header.classList.add = 'header';
-    headerLogo.classList.add = 'main__header__logo';
+    headerUserEmail.innerText = email;
+    headerUserName.innerText = `${firstName} ${lastName}`;
+
+    header.className = 'header';
+    headerLogo.className = 'header__logo';
+    headerUser.className = 'header__user';
+    headerUserInfo.className = 'header__user__info';
+    headerUserPhoto.className = 'header__user__photo';
+
     headerTitle.innerText = 'TODO LIST';
-    headerUser.classList.add = 'main__header__user';
-    headerUserInfo.classList.add = 'main__header__user__info';
-    headerUserPhoto.classList.add = 'main__header__user__photo';
-    headerTitle.append(headerLogo);
-    headerUserInfo.append(headerUser);
-    headerUserName.append();
+    headerUserFindUserButton.innerText = 'Find User';
+    headerUserLogoutButton.innerText = 'LOGOUT';
+
+    headerLogo.append(headerTitle);
+    headerUserInfo.append(headerUserName, headerUserEmail);
+    headerUser.append(
+      headerUserInfo,
+      headerUserPhoto,
+      headerUserFindUserButton,
+      headerUserLogoutButton
+    );
+    header.append(headerLogo, headerUser);
+
+    headerUserLogoutButton.onclick = () => {
+      clearUser();
+      clearToken();
+      window.location.href = ROUTS.sign_in;
+    };
+
+    headerUserFindUserButton.onclick = () => {
+      window.location.href = ROUTS.find_users;
+    };
+
+    target.append(header);
+
+    return header;
   }
 }
