@@ -1,5 +1,5 @@
 .sign-up {
-  margin: 5% auto;
+  margin: 0 auto;
   padding: 4%;
   width: 500px;
   &__btn {
@@ -28,4 +28,15 @@
 }
 .sign-up p {
   text-align: center;
+}
+// div {
+//   margin: 5% auto;
+// }
+.invalidInputMessage {
+  color: red;
+  text-align: left !important;
+  display: none;
+}
+.form-floating {
+  margin: 5% auto;
 }

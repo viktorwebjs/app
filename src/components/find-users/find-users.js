@@ -1,6 +1,6 @@
 import { Header } from '../header/header';
 
-export const findUser = () => {
+export const findUserHandler = () => {
   const section = document.querySelector('.header__section');
   const div = document.createElement('div');
   div.innerText = 'div';

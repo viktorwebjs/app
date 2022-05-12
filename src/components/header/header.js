@@ -28,7 +28,8 @@ export class Header {
     headerUser.className = 'header__user';
     headerUserInfo.className = 'header__user__info';
     headerUserPhoto.className = 'header__user__photo';
-
+    headerUserFindUserButton.className = 'btn btn-success';
+    headerUserLogoutButton.className = 'btn btn-success';
     headerTitle.innerText = 'TODO LIST';
     headerUserFindUserButton.innerText = 'Find User';
     headerUserLogoutButton.innerText = 'LOGOUT';

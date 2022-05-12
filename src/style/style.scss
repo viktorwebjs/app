@@ -1,5 +1,6 @@
-@import '../style/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
+@import '../style/colors.scss';
 @import '../components/sign-in/sign-in.scss';
 @import '../components/sign-up/sign-up.scss';
 @import '../components/main/main.scss';
@@ -14,5 +15,26 @@
 }
 
 body {
+  font-family: 'Fira Code', monospace;
   background-color: $colorBody;
+}
+
+.invalid-input {
+  border: 2px solid rgba(230, 58, 58, 0.801);
+}
+
+.spinner {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.203);
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .spinner-border {
+    width: 10rem;
+    height: 10rem;
+  }
 }

@@ -13,8 +13,8 @@
     <title>Sing In</title>
   </head>
   <body>
-    <h1 class="h1-sign-in">Sign In</h1>
     <div class="sign-in">
+      <h1 class="h1-sign-in">Sign In</h1>
       <div class="form-floating mb-3">
         <input
           id="emailInput"
@@ -22,6 +22,8 @@
           class="form-control"
           placeholder="name@example.com"
         />
+        <p id="emailInputError" class="invalidInputMessage"></p>
+        <p id="requiredEmailInputError" class="invalidInputMessage"></p>
         <label for="emailInput">Email address</label>
       </div>
       <div class="form-floating">
@@ -31,6 +33,7 @@
           class="form-control"
           placeholder="Password"
         />
+        <p id="passInputError1" class="invalidInputMessage"></p>
         <label for="passwordInput">Password</label>
       </div>
       <button

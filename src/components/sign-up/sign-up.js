@@ -1,4 +1,3 @@
-import { ROUTS } from '../../shared/constants/routs';
 import {
   creatUserAuthRequest,
   creatUserDataRequest,
@@ -7,6 +6,14 @@ import {
   getUser,
 } from '../../api/api-handlers';
 import { setToken, setUser } from '../../shared/services/local-storage-service';
+import { ROUTS } from '../../shared/constants/routs';
+import {
+  emailValidator,
+  showErrorMessage,
+  hideErrorMessage,
+} from '../../shared/validators';
+import { Spinner } from '../../shared/spinner';
+import { errorTagsIds } from '../../shared/validators';
 
 export const signUpHandler = () => {
   const firstNameInput = document.getElementById('firstNameInput');
@@ -24,33 +31,96 @@ export const signUpHandler = () => {
     email: '',
     password1: '',
     password2: '',
-    // userId: '',
   };
 
   firstNameInput.oninput = () => {
     userData.firstName = firstNameInput.value;
 
     checkFormValid();
+    hideErrorMessage('required_hide', errorTagsIds.get('first_name'));
   };
+
+  firstNameInput.onblur = () => {
+    if (!firstNameInput.value) {
+      firstNameInput.classList.add('invalid-input');
+      showErrorMessage('required_show', errorTagsIds.get('first_name'));
+    } else {
+      firstNameInput.classList.remove('invalid-input');
+      hideErrorMessage('required_hide', errorTagsIds.get('first_name'));
+    }
+  };
+
   lastNameInput.oninput = () => {
     userData.lastName = lastNameInput.value;
 
     checkFormValid();
+    hideErrorMessage('required_hide', errorTagsIds.get('last_name'));
   };
+
+  lastNameInput.onblur = () => {
+    if (!lastNameInput.value) {
+      lastNameInput.classList.add('invalid-input');
+      showErrorMessage('required_show', errorTagsIds.get('last_name'));
+    } else {
+      lastNameInput.classList.remove('invalid-input');
+      hideErrorMessage('required_hide', errorTagsIds.get('last_name'));
+    }
+  };
+
   birthInput.oninput = () => {
     userData.birth = birthInput.value;
 
     checkFormValid();
+    hideErrorMessage('required_hide', errorTagsIds.get('birth'));
+  };
+
+  birthInput.onblur = () => {
+    if (!birthInput.value) {
+      birthInput.classList.add('invalid-input');
+      showErrorMessage('required_show', errorTagsIds.get('birth'));
+    } else {
+      birthInput.classList.remove('invalid-input');
+      hideErrorMessage('required_hide', errorTagsIds.get('birth'));
+    }
   };
   emailInput.oninput = () => {
     userData.email = emailInput.value;
-
+    hideErrorMessage('email_hide', errorTagsIds.get('email'));
+    hideErrorMessage('required_hide', errorTagsIds.get('required_email'));
     checkFormValid();
   };
+
+  // 'Invalid email template. Please, correct it'
+  emailInput.onblur = () => {
+    if (!emailInput.value) {
+      showErrorMessage('required_show', errorTagsIds.get('required_email'));
+      hideErrorMessage('email_hide', errorTagsIds.get('email'));
+      emailInput.classList.add('invalid-input');
+    } else if (!emailValidator(emailInput.value)) {
+      emailInput.classList.add('invalid-input');
+      hideErrorMessage('required_hide', errorTagsIds.get('email'));
+      showErrorMessage('email_show', errorTagsIds.get('email'));
+    } else {
+      emailInput.classList.remove('invalid-input');
+      hideErrorMessage('email_hide', errorTagsIds.get('email'));
+      hideErrorMessage('required_hide', errorTagsIds.get('required_email'));
+    }
+  };
+
   passwordInput1.oninput = () => {
     userData.password1 = passwordInput1.value;
 
     checkFormValid();
+    hideErrorMessage('required_hide', errorTagsIds.get('pass1'));
+  };
+  passwordInput1.onblur = () => {
+    if (!passwordInput1.value) {
+      passwordInput1.classList.add('invalid-input');
+      showErrorMessage('required_show', errorTagsIds.get('pass1'));
+    } else {
+      passwordInput1.classList.remove('invalid-input');
+      hideErrorMessage('required_hide', errorTagsIds.get('pass1'));
+    }
   };
   passwordInput2.oninput = () => {
     userData.password2 = passwordInput2.value;
@@ -58,31 +128,47 @@ export const signUpHandler = () => {
     checkFormValid();
   };
 
+  passwordInput2.onblur = () => {
+    if (passwordInput1.value !== passwordInput2.value) {
+      passwordInput2.classList.add('invalid-input');
+      showErrorMessage('password_show', errorTagsIds.get('pass2'));
+    } else {
+      passwordInput2.classList.remove('invalid-input');
+      hideErrorMessage('password_hide', errorTagsIds.get('pass2'));
+    }
+  };
   signUpBtn.onclick = async () => {
     const { email, password1 } = userData;
     let authId = '';
     let userId = '';
 
-    await creatUserAuthRequest(userData).then((response) => {
-      console.log('response :>> ', (authId = response.user.uid));
-    });
+    Spinner.showSpinner();
+    await creatUserAuthRequest(userData)
+      .then((response) => {
+        authId = response.user.uid;
+      })
+      .catch((error) => Spinner.hideSpinner());
 
-    await creatUserDataRequest({ ...userData, authId }).then((res) => {
-      userId = res.name;
-    });
+    await creatUserDataRequest({ ...userData, authId })
+      .then((res) => {
+        userId = res.name;
+      })
+      .catch((error) => Spinner.hideSpinner());
 
     await signInRequest({ email, password: password1 })
       .then(({ user: { accessToken } }) => {
         console.log('signInRequest', res);
         setToken(accessToken);
       })
-      .catch((err) => console.log('Invalid'));
+      .catch((error) => Spinner.hideSpinner());
 
-    await getUser(userId).then((res) => {
-      // console.log('user', res);
-      setUser(res);
-      window.location.href = ROUTS.main;
-    });
+    await getUser(userId)
+      .then((res) => {
+        setUser(res);
+        window.location.href = ROUTS.main;
+        Spinner.hideSpinner();
+      })
+      .catch((error) => Spinner.hideSpinner());
   };
 
   const checkFormValid = () => {

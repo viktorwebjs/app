@@ -13,18 +13,20 @@
     <title>Sing Up</title>
   </head>
   <body>
-    <h1 class="h1-sign-up">Sing Up</h1>
     <div class="sign-up">
+      <h1 class="h1-sign-up">Sing Up</h1>
       <div class="form-floating">
         <input
           id="firstNameInput"
           class="form-control"
           placeholder="First Nam"
         />
+        <p id="firstNameInputError" class="invalidInputMessage"></p>
         <label for="firstName">First Name</label>
       </div>
       <div class="form-floating">
         <input id="lastNameInput" class="form-control" placeholder="Last Nam" />
+        <p id="lastNameInputError" class="invalidInputMessage"></p>
         <label for="lastName">Last Name</label>
       </div>
       <div class="form-floating">
@@ -32,10 +34,12 @@
           id="birthInput"
           type="date"
           class="form-control"
-          placeholder="First Nam"
+          placeholder="First Name"
         />
+        <p id="birthInputError" class="invalidInputMessage"></p>
         <label for="firstName">Birth Day</label>
       </div>
+
       <div class="form-floating">
         <input
           id="emailInput"
@@ -43,6 +47,8 @@
           class="form-control"
           placeholder="name@example.com"
         />
+        <p id="emailInputError" class="invalidInputMessage"></p>
+        <p id="requiredEmailInputError" class="invalidInputMessage"></p>
         <label for="emailInput">Email address</label>
       </div>
       <div class="form-floating">
@@ -51,6 +57,7 @@
           class="form-control"
           placeholder="Password"
         />
+        <p id="passInputError1" class="invalidInputMessage"></p>
         <label for="passwordInput1">Password</label>
         <div class="form-floating">
           <input
@@ -58,6 +65,7 @@
             class="form-control"
             placeholder="Password2"
           />
+          <p id="passInputError2" class="invalidInputMessage"></p>
           <label for="passwordInput2">Password Repeat</label>
         </div>
       </div>
