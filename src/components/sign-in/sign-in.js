@@ -10,6 +10,8 @@ import {
   errorTagsIds,
 } from '../../shared/validators';
 
+import { showNotification } from '../../shared/notifications';
+
 export const signInHandler = () => {
   const signInBtn = document.getElementById('signInBtn');
   const passwordInput = document.getElementById('passwordInput');
@@ -66,6 +68,8 @@ export const signInHandler = () => {
 
   signInBtn.onclick = async () => {
     let userId = '';
+    let count = 0;
+
     Spinner.showSpinner();
     await signInRequest(userData)
       // .then((res) => {
@@ -73,10 +77,14 @@ export const signInHandler = () => {
       .then(({ user: { accessToken, uid } }) => {
         setToken(accessToken);
         userId = uid;
+        count++;
         // console.log(res);
         // window.location.href = ROUTS.main;
       })
-      .catch((err) => Spinner.hideSpinner());
+      .catch((err) => {
+        Spinner.hideSpinner();
+        showNotification(err.message);
+      });
     await getUsers()
       .then((response) => {
         const users = Object.keys(response).map((userId) => ({
@@ -86,10 +94,16 @@ export const signInHandler = () => {
         const user = users.find((user) => user.authId === userId);
         setUser(user);
         Spinner.hideSpinner();
-        window.location.href = ROUTS.main;
-        console.log('user :>> ', user);
+        count++;
       })
-      .catch((err) => Spinner.hideSpinner());
+      .catch((err) => {
+        Spinner.hideSpinner();
+        showNotification(err.message);
+      });
+
+    if (count === 2) {
+      window.location.href = ROUTS.main;
+    }
   };
 };
 

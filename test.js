@@ -1,32 +1,32 @@
-class Pets {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-}
+// class Pets {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+// }
 
-class Dog extends Pets {
-  constructor(name, age) {
-    super(name, age);
-  }
-  sayGau() {
-    console.log(`Gau gau , ${this.name}, ${this.age}`);
-  }
-}
-class Cat extends Pets {
-  constructor(name, age) {
-    super(name, age);
-  }
-  sayMeow() {
-    console.log(`Meow meow , ${this.name}, ${this.age}`);
-  }
-}
+// class Dog extends Pets {
+//   constructor(name, age) {
+//     super(name, age);
+//   }
+//   sayGau() {
+//     console.log(`Gau gau , ${this.name}, ${this.age}`);
+//   }
+// }
+// class Cat extends Pets {
+//   constructor(name, age) {
+//     super(name, age);
+//   }
+//   sayMeow() {
+//     console.log(`Meow meow , ${this.name}, ${this.age}`);
+//   }
+// }
 
-const cat = new Cat('Murza', 5);
-const dog = new Dog('Bable', 7);
-cat.sayMeow();
-dog.sayGau();
-console.log(dog.name);
+// const cat = new Cat('Murza', 5);
+// const dog = new Dog('Bable', 7);
+// cat.sayMeow();
+// dog.sayGau();
+// console.log(dog.name);
 
 // class User {
 //   static myStaticValue = 100;

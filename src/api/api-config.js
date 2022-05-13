@@ -7,6 +7,7 @@ export const FIREBASE_CONFIG = {
   appId: '1:638381703381:web:f71a99620cad3d2f5fa25c',
 };
 
+Object;
 export const AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_CONFIG.apiKey}`;
 
 export const DB_URL = `https://first-55018-default-rtdb.firebaseio.com`;

@@ -14,6 +14,7 @@ import {
 } from '../../shared/validators';
 import { Spinner } from '../../shared/spinner';
 import { errorTagsIds } from '../../shared/validators';
+import { showNotification } from '../../shared/notifications';
 
 export const signUpHandler = () => {
   const firstNameInput = document.getElementById('firstNameInput');
@@ -32,6 +33,8 @@ export const signUpHandler = () => {
     password1: '',
     password2: '',
   };
+
+  showNotification('Email EXIST');
 
   firstNameInput.oninput = () => {
     userData.firstName = firstNameInput.value;
@@ -139,6 +142,7 @@ export const signUpHandler = () => {
   };
   signUpBtn.onclick = async () => {
     const { email, password1 } = userData;
+    let requestCount = 0;
     let authId = '';
     let userId = '';
 
@@ -146,29 +150,50 @@ export const signUpHandler = () => {
     await creatUserAuthRequest(userData)
       .then((response) => {
         authId = response.user.uid;
+        requestCount++;
       })
-      .catch((error) => Spinner.hideSpinner());
+      .catch((error) => {
+        Spinner.hideSpinner();
+        showNotification(error.message);
+      });
 
     await creatUserDataRequest({ ...userData, authId })
       .then((res) => {
         userId = res.name;
+        requestCount++;
       })
-      .catch((error) => Spinner.hideSpinner());
+      .catch((error) => {
+        Spinner.hideSpinner();
+        showNotification(error.message);
+      });
 
     await signInRequest({ email, password: password1 })
       .then(({ user: { accessToken } }) => {
         console.log('signInRequest', res);
         setToken(accessToken);
+        requestCount++;
       })
-      .catch((error) => Spinner.hideSpinner());
+      .catch((error) => {
+        Spinner.hideSpinner();
+        showNotification(error.message);
+      });
 
     await getUser(userId)
       .then((res) => {
         setUser(res);
-        window.location.href = ROUTS.main;
+        requestCount++;
+        console.log(requestCount);
+        // window.location.href = ROUTS.main;
         Spinner.hideSpinner();
       })
-      .catch((error) => Spinner.hideSpinner());
+      .catch((error) => {
+        Spinner.hideSpinner();
+        showNotification(error.message);
+      });
+
+    if (requestCount === 3) {
+      window.location.href = ROUTS.main;
+    }
   };
 
   const checkFormValid = () => {
@@ -178,5 +203,9 @@ export const signUpHandler = () => {
     isFormValid && isPasswordsEqual
       ? signUpBtn.removeAttribute('disabled')
       : signUpBtn.setAttribute('disabled', true);
+
+    // isFormValid && isPasswordsEqual
+    //   ?
+    //   : ;
   };
 };

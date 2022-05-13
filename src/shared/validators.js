@@ -15,6 +15,7 @@ const showErrorTag = (id, message) => {
 
 const hideErrorTag = (id) => {
   const error_tag = document.getElementById(id);
+
   error_tag.style.display = 'none';
 };
 

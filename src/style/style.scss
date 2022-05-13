@@ -38,3 +38,30 @@ body {
     height: 10rem;
   }
 }
+
+.notification {
+  width: 250px;
+  // height: 100px;
+  padding: 5px;
+  border: 1px solid $warning;
+  position: absolute;
+  flex-direction: row;
+  z-index: 999;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.error {
+    background-color: $warning;
+    color: white;
+  }
+
+  &.success {
+    background-color: $green;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
