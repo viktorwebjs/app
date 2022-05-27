@@ -99,7 +99,12 @@ export const mainPageHandler = async () => {
 
   const creatNewTodo = async () => {
     Spinner.showSpinner();
-    await createTodo({ ...newTodo, date: new Date(), userId: getUser().authId })
+    await createTodo({
+      ...newTodo,
+      date: new Date(),
+      userId: getUser().authId,
+      isComplite: false,
+    })
       .then((response) => {
         Spinner.hideSpinner();
         clearForm();
