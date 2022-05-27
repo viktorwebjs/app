@@ -5,6 +5,18 @@
   border-radius: 10px;
   margin: 1rem auto;
   padding: 1rem;
-}
-h4 {
+  position: relative;
+  i {
+    position: absolute;
+    right: 20px;
+    font-size: 3rem;
+    bottom: 40px;
+    cursor: pointer;
+    &:hover {
+      color: green;
+    }
+  }
+  .edit-icon {
+    right: 90px;
+  }
 }

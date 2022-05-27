@@ -169,7 +169,6 @@ export const signUpHandler = () => {
 
     await signInRequest({ email, password: password1 })
       .then(({ user: { accessToken } }) => {
-        console.log('signInRequest', res);
         setToken(accessToken);
         requestCount++;
       })
@@ -183,7 +182,6 @@ export const signUpHandler = () => {
         setUser(res);
         requestCount++;
         console.log(requestCount);
-        // window.location.href = ROUTS.main;
         Spinner.hideSpinner();
       })
       .catch((error) => {
@@ -191,7 +189,7 @@ export const signUpHandler = () => {
         showNotification(error.message);
       });
 
-    if (requestCount === 3) {
+    if (requestCount === 4) {
       window.location.href = ROUTS.main;
     }
   };

@@ -23,10 +23,11 @@ body {
   border: 2px solid rgba(230, 58, 58, 0.801);
 }
 
-.spinner {
+.spinner,
+.modal {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.203);
   z-index: 9;
   display: flex;
@@ -63,5 +64,41 @@ body {
   }
   p {
     font-size: 1rem;
+  }
+}
+.hidden {
+  display: none;
+}
+.modal-container {
+  width: 50%;
+  height: 150px;
+  border: 2px solid rgb(3, 81, 55);
+  background-color: rgb(179, 245, 225);
+  border-radius: 10px;
+  p {
+    padding: 1%;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    width: 85px;
+    height: 40px;
+    margin: 1%;
+  }
+}
+.toggler {
+  input {
+    width: 60px;
+    height: 20px;
+  }
+  span {
+    display: inline-block;
+    transform: translate(10px, 5px);
+    font-weight: 600;
   }
 }

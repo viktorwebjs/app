@@ -16,7 +16,15 @@ import { mainPageHandler } from './src/components/main/main';
 import { findUserHandler } from './src/components/find-users/find-users';
 
 const routerMap = new Map([
-  [PATHNAMES.home, () => (window.location.href = ROUTS.sign_in)],
+  [
+    PATHNAMES.home,
+    () => {
+      // (window.location.href = ROUTS.sign_in)
+      getToken() && Object.values(getUser()).length
+        ? (window.location.href = ROUTS.main)
+        : (window.location.href = ROUTS.sign_in);
+    },
+  ],
   [PATHNAMES.sign_in, () => signInHandler()],
   [PATHNAMES.sign_up, () => signUpHandler()],
   [
