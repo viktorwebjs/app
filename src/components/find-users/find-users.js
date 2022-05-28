@@ -3,7 +3,7 @@ import { getUsers } from '../../api/api-handlers';
 import { Spinner } from '../../shared/spinner';
 import { showNotification } from '../../shared/notifications';
 import { ROUTS } from '../../shared/constants/routs';
-import { setUserId } from '../../shared/services/local-storage-service';
+import { setCurrentUserData } from '../../shared/services/local-storage-service';
 
 export const findUsersHandler = async () => {
   const header = document.querySelector('.sect');
@@ -25,7 +25,7 @@ export const findUsersHandler = async () => {
 
     table_data_tags.forEach((tag) => tag.remove());
 
-    users.forEach(({ firstName, lastName, email, userId }) => {
+    users.forEach(({ firstName, lastName, email, userId, authId }) => {
       const firstNameValue = document.createElement('p');
       const lastNameValue = document.createElement('p');
       const emailValue = document.createElement('p');
@@ -44,7 +44,7 @@ export const findUsersHandler = async () => {
 
       tags_array.forEach((tag) => {
         tag.onclick = () => {
-          setUserId(userId);
+          setCurrentUserData({ authId, userId });
           window.location.href = ROUTS.user_details;
         };
       });

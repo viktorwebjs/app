@@ -1,0 +1,43 @@
+.user-details {
+  &__info {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    &__photo {
+      width: 300px;
+      //   height: 300px;
+      border: 2px solid green;
+      border-radius: 20px;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+    }
+    &__data {
+      width: 300px;
+      //   height: 300px;
+      border: 2px solid green;
+      border-radius: 20px;
+      padding: 15px;
+      div {
+        font-weight: bold;
+
+        span {
+          &:first-child {
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: underline;
+          }
+          &:last-child {
+          }
+        }
+      }
+    }
+  }
+  &__todos {
+    width: 90%;
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 15px;
+  }
+}

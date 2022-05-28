@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import {
   creatUserAuthRequest,
   creatUserDataRequest,
@@ -71,7 +73,7 @@ export const signUpHandler = () => {
   };
 
   birthInput.oninput = () => {
-    userData.birth = birthInput.value;
+    userData.birth = moment(birthInput.value).format();
 
     checkFormValid();
     hideErrorMessage('required_hide', errorTagsIds.get('birth'));
