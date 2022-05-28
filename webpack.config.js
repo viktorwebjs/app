@@ -28,6 +28,10 @@ module.exports = {
       filename: 'find-users.html',
       template: './src/components/find-users/find-users.html',
     }),
+    new HTMLWebpackPlugin({
+      filename: 'user-details.html',
+      template: './src/components/user-details/user-details.html',
+    }),
   ],
   module: {
     rules: [

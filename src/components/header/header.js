@@ -37,6 +37,10 @@ export class Header {
       headerUserFindUserButton.innerText = 'Find User';
       headerUserLogoutButton.innerText = 'LOGOUT';
 
+      headerTitle.onclick = () => {
+        window.location.href = ROUTS.main;
+      };
+
       headerLogo.append(headerTitle);
       headerUserInfo.append(headerUserName, headerUserEmail);
       headerUser.append(

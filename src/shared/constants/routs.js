@@ -4,6 +4,7 @@ export const PATHNAMES = {
   main: '/main.html',
   sign_up: '/sign-up.html',
   find_users: '/find-users.html',
+  user_details: '/user-details.html',
 };
 
 export const ROUTS = {
@@ -12,4 +13,5 @@ export const ROUTS = {
   main: 'main.html',
   sign_up: 'sign-up.html',
   find_users: 'find-users.html',
+  user_details: 'user-details.html',
 };

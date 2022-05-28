@@ -2,6 +2,8 @@ import { Header } from '../header/header';
 import { getUsers } from '../../api/api-handlers';
 import { Spinner } from '../../shared/spinner';
 import { showNotification } from '../../shared/notifications';
+import { ROUTS } from '../../shared/constants/routs';
+import { setUserId } from '../../shared/services/local-storage-service';
 
 export const findUsersHandler = async () => {
   const header = document.querySelector('.sect');
@@ -18,9 +20,6 @@ export const findUsersHandler = async () => {
   const search = document.getElementById('search');
   let users = [];
 
-  const goToUserDetails = () => {
-    console.log('1 user');
-  };
   const renderUsers = (users) => {
     const table_data_tags = document.querySelectorAll('.table-data');
 
@@ -31,6 +30,7 @@ export const findUsersHandler = async () => {
       const lastNameValue = document.createElement('p');
       const emailValue = document.createElement('p');
       const idValue = document.createElement('p');
+      const tags_array = [firstNameValue, lastNameValue, emailValue, idValue];
 
       firstNameValue.className = 'table-data';
       lastNameValue.className = 'table-data';
@@ -41,6 +41,13 @@ export const findUsersHandler = async () => {
       lastNameValue.innerText = lastName;
       emailValue.innerText = email;
       idValue.innerText = userId;
+
+      tags_array.forEach((tag) => {
+        tag.onclick = () => {
+          setUserId(userId);
+          window.location.href = ROUTS.user_details;
+        };
+      });
 
       first_name_table.append(firstNameValue);
       last_name_table.append(lastNameValue);
