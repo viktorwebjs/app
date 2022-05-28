@@ -13,7 +13,7 @@ import { signInHandler } from './src/components/sign-in/sign-in';
 import { signUpHandler } from './src/components/sign-up/sign-up';
 import { getToken, getUser } from './src/shared/services/local-storage-service';
 import { mainPageHandler } from './src/components/main/main';
-import { findUserHandler } from './src/components/find-users/find-users';
+import { findUsersHandler } from './src/components/find-users/find-users';
 
 const routerMap = new Map([
   [
@@ -26,7 +26,8 @@ const routerMap = new Map([
     },
   ],
   [PATHNAMES.sign_in, () => signInHandler()],
-  [PATHNAMES.sign_up, () => signUpHandler()],
+  [PATHNAMES.find_users, () => findUsersHandler()],
+  [(PATHNAMES.sign_up, () => signUpHandler())],
   [
     PATHNAMES.main,
     () => {
@@ -35,7 +36,6 @@ const routerMap = new Map([
         : mainPageHandler();
     },
   ],
-  [PATHNAMES.find_users, () => findUserHandler()],
 ]);
 
 window.onload = () => {

@@ -82,7 +82,12 @@ export const mainPageHandler = async () => {
         const todo = { id: key, ...todosArr[key] };
         if (todo.userId === id) {
           todoWrapper.append(
-            new Todo(todo, editTodoHandler, deleteTodoHandler).getTodo()
+            new Todo(
+              todo,
+              editTodoHandler,
+              deleteTodoHandler,
+              setIsComplete
+            ).getTodo()
           );
         }
 
@@ -97,13 +102,20 @@ export const mainPageHandler = async () => {
       : submitBtn.setAttribute('disabled', true);
   };
 
+  const setIsComplete = (isComplete, todoId) => {
+    console.log(isComplete, todoId);
+    const findingTodo = todos.find((todo) => todo.id === todoId);
+
+    updateCurrentTodo({ ...findingTodo, isComplete }, todoId);
+  };
+
   const creatNewTodo = async () => {
     Spinner.showSpinner();
     await createTodo({
       ...newTodo,
       date: new Date(),
       userId: getUser().authId,
-      isComplite: false,
+      isComplete: false,
     })
       .then((response) => {
         Spinner.hideSpinner();
@@ -124,16 +136,8 @@ export const mainPageHandler = async () => {
         showNotification(error.message);
       });
   };
-  const updateCurrentTodo = async () => {
-    Spinner.showSpinner();
-    await updateTodo(
-      {
-        ...newTodo,
-        date: new Date(),
-        userId: getUser().authId,
-      },
-      editingTodoId
-    )
+  const updateCurrentTodo = async (todo, id) => {
+    await updateTodo(todo, id)
       .then((response) => {
         Spinner.hideSpinner();
         clearForm();
@@ -159,7 +163,16 @@ export const mainPageHandler = async () => {
   };
 
   submitBtn.onclick = async () => {
-    isEditMode ? updateCurrentTodo() : creatNewTodo();
+    isEditMode
+      ? updateCurrentTodo(
+          {
+            ...newTodo,
+            date: new Date(),
+            userId: getUser().authId,
+          },
+          editingTodoId
+        )
+      : creatNewTodo();
   };
 
   description.oninput = () => {

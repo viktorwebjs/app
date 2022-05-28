@@ -201,9 +201,5 @@ export const signUpHandler = () => {
     isFormValid && isPasswordsEqual
       ? signUpBtn.removeAttribute('disabled')
       : signUpBtn.setAttribute('disabled', true);
-
-    // isFormValid && isPasswordsEqual
-    //   ?
-    //   : ;
   };
 };

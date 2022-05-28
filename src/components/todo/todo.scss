@@ -19,4 +19,8 @@
   .edit-icon {
     right: 90px;
   }
+  &.active {
+    border: 1px solid green;
+    background-color: $primary;
+  }
 }

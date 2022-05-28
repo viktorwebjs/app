@@ -1,0 +1,37 @@
+.find-users {
+  .form-floating {
+    width: 95%;
+    margin: 30px auto;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__first-name,
+    &__last-name,
+    &__email,
+    &__id {
+      @include size(20%, 50px);
+
+      p {
+        text-align: center;
+        cursor: pointer;
+      }
+
+      div {
+        border: 1px solid green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+
+        p {
+          font-weight: bold;
+          text-align: center;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
