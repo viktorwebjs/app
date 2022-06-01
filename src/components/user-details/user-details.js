@@ -1,12 +1,7 @@
 import * as moment from 'moment';
 
 import { Header } from '../header/header';
-import {
-  getUser,
-  getTodos,
-  createComment,
-  updateTodo,
-} from '../../api/api-handlers';
+import { apiService } from '../../api/api-handlers';
 import {
   getCurrentUserData,
   getUserLocal,
@@ -63,14 +58,18 @@ export const userDetailsHandler = async () => {
           let newTodo;
           let comments;
 
-          await createComment(comment).then(
-            (response) => (commentId = response.name)
-          );
+          // await createComment(comment)
+          await apiService
+            .post('comments', comment)
+            .then((response) => (commentId = response.name));
           comments = todo.comments || [];
           comments.push(commentId);
 
           newTodo = { ...todo, comments };
-          await updateTodo(newTodo, id).then((res) => console.log(res));
+          // await updateTodo(newTodo, id)
+          await apiService
+            .put(`todos${id}`, newTodo)
+            .then((res) => console.log(res));
         }
       };
 
@@ -87,7 +86,9 @@ export const userDetailsHandler = async () => {
 
   Header.getHeader(header);
   Spinner.showSpinner();
-  await getUser(getCurrentUserData().userId)
+  // await getUser(getCurrentUserData().userId)
+  await apiService
+    .get(`users/${getCurrentUserData().userId}`)
     .then(({ firstName, lastName, email, birth }) => {
       const userPhoto = document.createElement('img');
 
@@ -105,15 +106,9 @@ export const userDetailsHandler = async () => {
       showNotification(error.message);
     });
   Spinner.showSpinner();
-  await getTodos()
-    .then((todos) => {
-      Spinner.hideSpinner();
-      renderTodos(todos);
-    })
-    .catch((error) => {
-      Spinner.hideSpinner();
-      showNotification(error.message);
-    });
+  await apiService.get(`todos`).then((todos) => {
+    renderTodos(todos);
+  });
 };
 
 // import * as moment from 'moment';

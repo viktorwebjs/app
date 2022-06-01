@@ -4,7 +4,7 @@ import {
   creatUserAuthRequest,
   creatUserDataRequest,
   signInRequest,
-  getUser,
+  apiService,
 } from '../../api/api-handlers';
 import { setToken, setUser } from '../../shared/services/local-storage-service';
 import { ROUTS } from '../../shared/constants/routs';
@@ -178,17 +178,16 @@ export const signUpHandler = () => {
         showNotification(error.message);
       });
 
-    await getUser(userId)
-      .then((res) => {
-        setUser(res);
-        requestCount++;
-        console.log(requestCount);
-        Spinner.hideSpinner();
-      })
-      .catch((error) => {
-        Spinner.hideSpinner();
-        showNotification(error.message);
-      });
+    await apiService.get(`users/${userId}`).then((res) => {
+      setUser(res);
+      requestCount++;
+      console.log(requestCount);
+      // Spinner.hideSpinner();
+    });
+    // .catch((error) => {
+    //   Spinner.hideSpinner();
+    //   showNotification(error.message);
+    // })
 
     if (requestCount === 4) {
       window.location.href = ROUTS.main;

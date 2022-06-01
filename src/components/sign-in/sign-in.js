@@ -1,7 +1,6 @@
-import { getUsers, getUser, signInRequest } from '../../api/api-handlers';
+import { signInRequest, apiService } from '../../api/api-handlers';
 import { ROUTS } from '../../shared/constants/routs';
 import { setToken, setUser } from '../../shared/services/local-storage-service';
-import { getToken } from '../../shared/services/local-storage-service';
 import { Spinner } from '../../shared/spinner';
 import {
   emailValidator,
@@ -85,7 +84,9 @@ export const signInHandler = () => {
         Spinner.hideSpinner();
         showNotification(err.message);
       });
-    await getUsers()
+    // await getUsers()
+    await apiService
+      .get(`users`)
       .then((response) => {
         const users = Object.keys(response).map((userId) => ({
           ...response[userId],

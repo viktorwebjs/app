@@ -1,7 +1,6 @@
 import { Header } from '../header/header';
-import { getUsers } from '../../api/api-handlers';
+import { apiService } from '../../api/api-handlers';
 import { Spinner } from '../../shared/spinner';
-import { showNotification } from '../../shared/notifications';
 import { ROUTS } from '../../shared/constants/routs';
 import { setCurrentUserData } from '../../shared/services/local-storage-service';
 
@@ -66,19 +65,13 @@ export const findUsersHandler = async () => {
 
   Header.getHeader(header);
   Spinner.showSpinner();
-  await getUsers()
-    .then((response) => {
-      users = Object.keys(response).map((userId) => ({
-        ...response[userId],
-        userId,
-      }));
-      renderUsers(users);
-      Spinner.hideSpinner();
-    })
-    .catch((error) => {
-      Spinner.hideSpinner();
-      showNotification(error.message);
-    });
+  await apiService.get(`users`).then((response) => {
+    users = Object.keys(response).map((userId) => ({
+      ...response[userId],
+      userId,
+    }));
+    renderUsers(users);
+  });
 };
 
 // import { Header } from '../header/header';
