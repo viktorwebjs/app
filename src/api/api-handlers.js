@@ -19,6 +19,10 @@ export const creatUserAuthRequest = ({ email, password1 }) => {
 };
 
 export const creatUserDataRequest = (user) => {
+  const userData = user;
+  delete userData.password1;
+  delete userData.password2;
+
   return fetch(`${DB_URL}/users.json`, {
     method: 'POST',
     body: JSON.stringify(user),
@@ -55,5 +59,12 @@ export const updateTodo = (todo, id) => {
 export const deleteTodo = (id) => {
   return fetch(`${DB_URL}/todos/${id}.json`, {
     method: 'DELETE',
+  }).then((response) => response.json());
+};
+
+export const createComment = (comment) => {
+  return fetch(`${DB_URL}/comments.json`, {
+    method: 'POST',
+    body: JSON.stringify(comment),
   }).then((response) => response.json());
 };

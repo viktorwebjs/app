@@ -1,5 +1,5 @@
 import {
-  getUser,
+  getUserLocal,
   clearUser,
   clearToken,
 } from '../../shared/services/local-storage-service';
@@ -10,7 +10,7 @@ export class Header {
   // constructor() {}
 
   static getHeader(target) {
-    if (Object.values(getUser()).length) {
+    if (Object.values(getUserLocal()).length) {
       const header = document.createElement('div');
       const headerLogo = document.createElement('div');
       const headerTitle = document.createElement('p');
@@ -21,7 +21,7 @@ export class Header {
       const headerUserPhoto = document.createElement('div');
       const headerUserFindUserButton = document.createElement('button');
       const headerUserLogoutButton = document.createElement('button');
-      const { firstName, lastName, email } = getUser();
+      const { firstName, lastName, email } = getUserLocal();
 
       headerUserEmail.innerText = email;
       headerUserName.innerText = `${firstName} ${lastName}`;

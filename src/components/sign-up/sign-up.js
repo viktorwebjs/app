@@ -4,7 +4,6 @@ import {
   creatUserAuthRequest,
   creatUserDataRequest,
   signInRequest,
-  getUsers,
   getUser,
 } from '../../api/api-handlers';
 import { setToken, setUser } from '../../shared/services/local-storage-service';

@@ -1,4 +1,4 @@
-import { getUsers, signInRequest } from '../../api/api-handlers';
+import { getUsers, getUser, signInRequest } from '../../api/api-handlers';
 import { ROUTS } from '../../shared/constants/routs';
 import { setToken, setUser } from '../../shared/services/local-storage-service';
 import { getToken } from '../../shared/services/local-storage-service';

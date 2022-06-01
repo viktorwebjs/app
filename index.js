@@ -11,7 +11,10 @@ import './src/style/style.scss';
 import { PATHNAMES, ROUTS } from './src/shared/constants/routs';
 import { signInHandler } from './src/components/sign-in/sign-in';
 import { signUpHandler } from './src/components/sign-up/sign-up';
-import { getToken, getUser } from './src/shared/services/local-storage-service';
+import {
+  getToken,
+  getUserLocal,
+} from './src/shared/services/local-storage-service';
 import { mainPageHandler } from './src/components/main/main';
 import { findUsersHandler } from './src/components/find-users/find-users';
 import { userDetailsHandler } from './src/components/user-details/user-details';
@@ -21,7 +24,7 @@ const routerMap = new Map([
     PATHNAMES.home,
     () => {
       // (window.location.href = ROUTS.sign_in)
-      getToken() && Object.values(getUser()).length
+      getToken() && Object.values(getUserLocal()).length
         ? (window.location.href = ROUTS.main)
         : (window.location.href = ROUTS.sign_in);
     },
@@ -33,7 +36,7 @@ const routerMap = new Map([
   [
     PATHNAMES.main,
     () => {
-      !getToken() && !getUser()
+      !getToken() && !getUserLocal()
         ? (window.location.href = ROUTS.sign_in)
         : mainPageHandler();
     },

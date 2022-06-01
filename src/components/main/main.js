@@ -4,7 +4,7 @@ import { Header } from '../header/header';
 import { Spinner } from '../../shared/spinner';
 import { createTodo, updateTodo, deleteTodo } from '../../api/api-handlers';
 import { showNotification } from '../../shared/notifications';
-import { getUser } from '../../shared/services/local-storage-service';
+import { getUserLocal } from '../../shared/services/local-storage-service';
 import { Modal } from '../../shared/modal';
 import { MODAL_MESSAGES } from '../../shared/constants/modalMessages';
 
@@ -74,7 +74,7 @@ export const mainPageHandler = async () => {
 
   const renderTodos = (todosArr) => {
     if (todosArr) {
-      const id = getUser().authId;
+      const id = getUserLocal().authId;
 
       todos = [];
       todoWrapper.innerHTML = null;
@@ -93,6 +93,8 @@ export const mainPageHandler = async () => {
 
         return todo;
       });
+    } else {
+      todoWrapper.innerHTML = null;
     }
   };
 
@@ -114,8 +116,9 @@ export const mainPageHandler = async () => {
     await createTodo({
       ...newTodo,
       date: new Date(),
-      userId: getUser().authId,
+      userId: getUserLocal().authId,
       isComplete: false,
+      comments: [],
     })
       .then((response) => {
         Spinner.hideSpinner();
@@ -163,16 +166,19 @@ export const mainPageHandler = async () => {
   };
 
   submitBtn.onclick = async () => {
-    isEditMode
-      ? updateCurrentTodo(
-          {
-            ...newTodo,
-            date: new Date(),
-            userId: getUser().authId,
-          },
-          editingTodoId
-        )
-      : creatNewTodo();
+    if (isEditMode) {
+      const findingTodo = todos.find((todo) => todo.id === editingTodoId);
+      const todoToRequest = {
+        ...findingTodo,
+        ...newTodo,
+        date: new Date(),
+        userId: getUserLocal().authId,
+      };
+      updateCurrentTodo(todoToRequest, editingTodoId);
+      console.log(todoToRequest);
+    } else {
+      creatNewTodo();
+    }
   };
 
   description.oninput = () => {

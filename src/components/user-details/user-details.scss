@@ -1,11 +1,17 @@
 .user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   &__info {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     padding: 15px;
+
     &__photo {
+      margin-right: 2%;
       width: 300px;
-      //   height: 300px;
       border: 2px solid green;
       border-radius: 20px;
       overflow: hidden;
@@ -15,7 +21,6 @@
     }
     &__data {
       width: 300px;
-      //   height: 300px;
       border: 2px solid green;
       border-radius: 20px;
       padding: 15px;
@@ -28,16 +33,38 @@
             font-size: 20px;
             text-decoration: underline;
           }
-          &:last-child {
-          }
         }
       }
     }
   }
-  &__todos {
-    width: 90%;
+  &__todos,
+  &__todos__todo {
+    margin: 2% auto;
+    width: 95%;
     border: 2px solid green;
     border-radius: 20px;
     padding: 15px;
+
+    &__todo {
+      p {
+        font-size: 1.5rem;
+        word-wrap: break-word;
+        &:first-child {
+          font-weight: bold;
+          font-size: 2rem;
+        }
+      }
+      span {
+        color: green;
+      }
+    }
+    &__comment {
+      margin: 2% auto;
+      // margin-top: 2%;
+      width: 100%;
+      textarea {
+        margin-bottom: 15px;
+      }
+    }
   }
 }
